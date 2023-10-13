@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import SVGComponent from './Header';
+import "./index.css";
 
 function App() {
+  const [color, setColor] = useState('blue');
+
+  const changeColor = async (newColor) => {
+    try {
+      await axios.post('http://localhost:5000/change-color', { color: newColor });
+      setColor(newColor);
+    } catch (error) {
+      console.error('Error changing color:', error);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch and set the initial color when the component mounts
+    axios.get('http://localhost:5000/get-color').then((response) => {
+      setColor(response.data.color);
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <SVGComponent color={color} />
+      <div className='size'>
+      <button onClick={() => changeColor('red')}>Change to Red</button>
+      <button onClick={() => changeColor('green')}>Change to Green</button>
+      </div>
     </div>
   );
 }

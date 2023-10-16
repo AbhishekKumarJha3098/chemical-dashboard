@@ -8,7 +8,7 @@ function App() {
 
   const changeColor = async (newColor) => {
     try {
-      await axios.post('http://localhost:5000/change-color', { color: newColor });
+      await axios.post('http://localhost:1880/change-color', { color: newColor });
       setColor(newColor);
     } catch (error) {
       console.error('Error changing color:', error);
@@ -17,7 +17,7 @@ function App() {
 
   useEffect(() => {
     // Fetch and set the initial color when the component mounts
-    axios.get('http://localhost:5000/get-color').then((response) => {
+    axios.get('http://localhost:1880/get-color').then((response) => {
       setColor(response.data.color);
     });
   }, []);

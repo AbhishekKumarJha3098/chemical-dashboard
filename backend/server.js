@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors()); // Allow cross-origin requests for your React app
 
 // Initialize a default color
-let currentColor = 'blue';
+let currentColor = 'brown';
 
 // Endpoint to change the color
 app.post('/change-color', (req, res) => {
